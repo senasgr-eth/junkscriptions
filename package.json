@@ -1,12 +1,12 @@
 {
-  "name": "luckyscriptions",
+  "name": "junkscriptions",
   "version": "1.0.0",
   "description": "A minter and protocol for inscriptions on Lucky",
-  "main": "luckyscriptions.js",
+  "main": "junkscriptions.js",
   "author": "blackluv",
   "license": "MIT",
   "bin": {
-    "luckyscriptions": "luckyscriptions.js"
+    "junkscriptions": "junkscriptions.js"
   },
   "dependencies": {
     "axios": "^1.3.4",
