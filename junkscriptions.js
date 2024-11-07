@@ -38,7 +38,7 @@ async function main() {
         await wallet()
     } else if (cmd == 'server') {
         await server()
-    } else if (cmd == 'jkc-20') {
+    } else if (cmd == 'jnk-20') {
         await doge20()
     } else {
         throw new Error(`unknown command: ${cmd}`)
@@ -66,7 +66,7 @@ async function doge20Deploy() {
   const argLimit = process.argv[7]
 
   const doge20Tx = {
-    p: "jkc-20",
+    p: "jnk-20",
     op: "deploy",
     tick: `${argTicker.toLowerCase()}`,
     max: `${argMax}`,
@@ -78,7 +78,7 @@ async function doge20Deploy() {
   // encode the doge20Tx as hex string
   const encodedDoge20Tx = Buffer.from(parsedDoge20Tx).toString('hex');
 
-  console.log("Deploying jkc-20 token...");
+  console.log("Deploying jnk-20 token...");
   await mint(argAddress, "text/plain;charset=utf-8", encodedDoge20Tx);
 }
 
@@ -89,7 +89,7 @@ async function doge20Transfer() {
   const argRepeat = Number(process.argv[7]) || 1;
 
   const doge20Tx = {
-    p: "jkc-20",
+    p: "jnk-20",
     op: "transfer",
     tick: `${argTicker.toLowerCase()}`,
     amt: `${argAmount}`
@@ -101,7 +101,7 @@ async function doge20Transfer() {
   const encodedDoge20Tx = Buffer.from(parsedDoge20Tx).toString('hex');
 
   for (let i = 0; i < argRepeat; i++) {
-    console.log("Minting jkc-20 token...", i + 1, "of", argRepeat, "times");
+    console.log("Minting jnk-20 token...", i + 1, "of", argRepeat, "times");
     await mint(argAddress, "text/plain;charset=utf-8", encodedDoge20Tx);
   }
 }
@@ -125,45 +125,19 @@ async function wallet() {
 }
 
 
-async function walletNew() {
-	if (!fs.existsSync(WALLET_PATH)) {
-		const privateKey = new PrivateKey();
-		const privkey = privateKey.toWIF();
-		const address = privateKey.toAddress().toString();
-		const json = { privkey, address, utxos: [] };
-
-		fs.writeFileSync(WALLET_PATH, JSON.stringify(json, null, 2));
-		console.log('address', address);
-
-		// Ekspor private key ke RPC server
-		const body = {
-			jsonrpc: '1.0',
-			id: 'wallet',
-			method: 'importprivkey',
-			params: [privkey, address, false]  
-		};
-
-		const options = {
-			auth: {
-				username: process.env.NODE_RPC_USER,
-				password: process.env.NODE_RPC_PASS
-			}
-		};
-
-		try {
-			const response = await axios.post(process.env.NODE_RPC_URL, body, options);
-			if (response.data.error) {
-				console.error('Failed to import private key:', response.data.error.message);
-			} else {
-				console.log('Private key imported to RPC server successfully.');
-			}
-		} catch (error) {
-			console.error('Error importing private key to RPC server:', error.message);
-		}
-	} else {
-		throw new Error('wallet already exists');
-	}
+function walletNew() {
+    if (!fs.existsSync(WALLET_PATH)) {
+        const privateKey = new PrivateKey()
+        const privkey = privateKey.toWIF()
+        const address = privateKey.toAddress().toString()
+        const json = { privkey, address, utxos: [] }
+        fs.writeFileSync(WALLET_PATH, JSON.stringify(json, 0, 2))
+        console.log('address', address)
+    } else {
+        throw new Error('wallet already exists')
+    }
 }
+
 
 async function walletSync() {
     let wallet = JSON.parse(fs.readFileSync(WALLET_PATH))
