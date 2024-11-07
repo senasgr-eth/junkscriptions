@@ -1,6 +1,5 @@
 thxs to https://github.com/hieujson and 
 https://github.com/senasgr-eth !
-http://localhost:3000/tx/15f3b73df7e5c072becb1d84191843ba080734805addfccb650929719080f62e
 
 
 
