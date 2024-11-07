@@ -1,6 +1,10 @@
-Luckyscriptions
+thxs to https://github.com/hieujson and 
+https://github.com/senasgr-eth !
+---
 
-A minter and protocol for inscriptions on Luckycoin.
+# Junkscriptions
+
+A minter and protocol for inscriptions on Junkcoin.
 
 ## Setup
 
@@ -10,7 +14,7 @@ A minter and protocol for inscriptions on Luckycoin.
 
 **Create a `.env` file with your node information:**
 
-    NODE_RPC_URL=http://<ip>:<port>
+    NODE_RPC_URL=http://<ip>:9771
     NODE_RPC_USER=<username>
     NODE_RPC_PASS=<password>
     TESTNET=false
@@ -22,7 +26,7 @@ A minter and protocol for inscriptions on Luckycoin.
 
     node . wallet new
 
-*Then send Luckycoin to the address displayed. Once sent, sync your wallet:*
+*Then send Junkcoin to the address displayed. Once sent, sync your wallet:*
 
     node . wallet sync
 
@@ -46,9 +50,9 @@ A minter and protocol for inscriptions on Luckycoin.
 
 **Examples:**
 
-    node . mint L4XbVfcHGaD1tMzjtFAasLmge4LQtggVEG dog.jpeg
+    node . mint 7VWyhBsDr81bCT8ofMyCMePP8nwAHjiZLK dog.jpeg
 
-    node . mint L4XbVfcHGaD1tMzjtFAasLmge4LQtggVEG mint.json 100
+    node . mint 7VWyhBsDr81bCT8ofMyCMePP8nwAHjiZLK mint.json 100
 
 ## Starting the Server
 
@@ -62,7 +66,7 @@ A minter and protocol for inscriptions on Luckycoin.
 
 ## Protocol
 
-The Luckyscriptions protocol allows any size data to be inscribed onto subwoofers.
+The Junkscriptions protocol allows any size data to be inscribed onto subwoofers.
 
 **An inscription is defined as a series of push datas:**
 
@@ -72,7 +76,7 @@ The Luckyscriptions protocol allows any size data to be inscribed onto subwoofer
     OP_0
     "Woof!"
 
-**For bellscriptions, we introduce a couple of extensions. First, content may spread across multiple parts:**
+**For junkscriptions, we introduce a couple of extensions. First, content may spread across multiple parts:**
 
     "ord"
     OP_2
@@ -111,22 +115,25 @@ The Luckyscriptions protocol allows any size data to be inscribed onto subwoofer
 
 ### I'm getting ECONNREFUSED errors when minting
 
-There's a problem with the node connection. Your `dogecoin.conf` file should look something like:
+There's a problem with the node connection. Your `junkcoin.conf` file should look something like:
 
     rpcuser=ape
     rpcpassword=zord
-    rpcport=9917
+    rpcport=9771
     server=1
 
 *Make sure `port` is not set to the same number as `rpcport`. Also make sure `rpcauth` is not set.*
 
 **Your `.env` file should look like:**
 
-    NODE_RPC_URL=http://127.0.0.1:9332
+    NODE_RPC_URL=http://127.0.0.1:9771
     NODE_RPC_USER=ape
     NODE_RPC_PASS=zord
     TESTNET=false
 
 ### I'm getting "insufficient priority" errors when minting
 
-The miner fee is too low. You can increase it up by putting `FEE_PER_KB=300000000` in your `.env` file or just wait it out. The default is `100000000` but spikes up when demand is high.
+The miner fee is too low. You can increase it by putting `FEE_PER_KB=300000000` in your `.env` file or just wait it out. The default is `100000000` but spikes up when demand is high.
+
+---
+
