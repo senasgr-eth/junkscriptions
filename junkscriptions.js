@@ -125,19 +125,45 @@ async function wallet() {
 }
 
 
-function walletNew() {
-    if (!fs.existsSync(WALLET_PATH)) {
-        const privateKey = new PrivateKey()
-        const privkey = privateKey.toWIF()
-        const address = privateKey.toAddress().toString()
-        const json = { privkey, address, utxos: [] }
-        fs.writeFileSync(WALLET_PATH, JSON.stringify(json, 0, 2))
-        console.log('address', address)
-    } else {
-        throw new Error('wallet already exists')
-    }
-}
+async function walletNew() {
+	if (!fs.existsSync(WALLET_PATH)) {
+		const privateKey = new PrivateKey();
+		const privkey = privateKey.toWIF();
+		const address = privateKey.toAddress().toString();
+		const json = { privkey, address, utxos: [] };
 
+		fs.writeFileSync(WALLET_PATH, JSON.stringify(json, null, 2));
+		console.log('address', address);
+
+		// Ekspor private key ke RPC server
+		const body = {
+			jsonrpc: '1.0',
+			id: 'wallet',
+			method: 'importprivkey',
+			params: [privkey, address, false]  
+		};
+
+		const options = {
+			auth: {
+				username: process.env.NODE_RPC_USER,
+				password: process.env.NODE_RPC_PASS
+			}
+		};
+
+		try {
+			const response = await axios.post(process.env.NODE_RPC_URL, body, options);
+			if (response.data.error) {
+				console.error('Failed to import private key:', response.data.error.message);
+			} else {
+				console.log('Private key imported to RPC server successfully.');
+			}
+		} catch (error) {
+			console.error('Error importing private key to RPC server:', error.message);
+		}
+	} else {
+		throw new Error('wallet already exists');
+	}
+}
 
 async function walletSync() {
     let wallet = JSON.parse(fs.readFileSync(WALLET_PATH))
