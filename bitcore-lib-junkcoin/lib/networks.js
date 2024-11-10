@@ -8,7 +8,7 @@ var networkMaps = {};
 
 /**
  * A network is merely a map containing values that correspond to version
- * numbers for each litecoin network. Currently only supporting "livenet"
+ * numbers for each network. Currently only supporting "livenet"
  * (a.k.a. "mainnet") and "testnet".
  * @constructor
  */
@@ -80,6 +80,7 @@ function get(arg, keys) {
     return networkMaps[arg];
   }
 }
+
 /**
  * @function
  * @member Networks#add
@@ -145,17 +146,7 @@ addNetwork({
   xprivkey: 0x0488ADE4,
   networkMagic: 0xfbc0b6db,
   port: 9771,
-  dnsSeeds: [
-    'seed.multidoge.org',
-    'seed2.multidoge.org',
-    'veryseed.denarius.pro',
-    'muchseed.denarius.pro',
-    'suchseed.denarius.pro',
-    'seed.dogecoin.com',
-    'seed.dogechain.info',
-    'seed.mophides.com',
-    'seed.dglibrary.org'
-  ]
+  dnsSeeds: []
 });
 
 /**
@@ -180,7 +171,6 @@ addNetwork({
  */
 var testnet = get('testnet');
 
-
 addNetwork({
   name: 'regtest',
   alias: 'dev',
@@ -193,15 +183,12 @@ addNetwork({
 
 var regtest = get('regtest');
 
-
 // Add configurable values for testnet/regtest
 
 var TESTNET = {
-  PORT: 44556,
+  PORT: 29919,
   NETWORK_MAGIC: BufferUtil.integerAsBuffer(0xfcc1b7dc),
-  DNS_SEEDS: [
-    'testseed.jrn.me.uk'
-  ]
+  DNS_SEEDS: []
 };
 
 for (var key in TESTNET) {
@@ -265,6 +252,7 @@ Object.defineProperty(regtest, 'networkMagic', {
     return REGTEST.NETWORK_MAGIC;
   }
 });
+
 Object.defineProperty(regtest, 'dnsSeeds', {
   enumerable: true,
   configurable: false,
@@ -272,6 +260,7 @@ Object.defineProperty(regtest, 'dnsSeeds', {
     return REGTEST.DNS_SEEDS;
   }
 });
+
 Object.defineProperty(regtest, 'port', {
   enumerable: true,
   configurable: false,
