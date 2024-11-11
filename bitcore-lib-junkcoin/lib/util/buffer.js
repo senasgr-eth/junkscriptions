@@ -152,20 +152,20 @@ module.exports = {
    * @return {Buffer}
    */
   reverse: function reverse(param) {
-    return (Buffer.from(param)).reverse();
+    return Buffer.from(param).reverse();
   },
 
   /**
    * Transforms an hexa encoded string into a Buffer with binary values
    *
-   * Shorthand for <tt>Buffer(string, 'hex')</tt>
+   * Shorthand for <tt>Buffer.from(string, 'hex')</tt>
    *
    * @param {string} string
    * @return {Buffer}
    */
   hexToBuffer: function hexToBuffer(string) {
     assert(js.isHexa(string));
-    return new buffer.Buffer(string, 'hex');
+    return Buffer.from(string, 'hex');
   }
 };
 
