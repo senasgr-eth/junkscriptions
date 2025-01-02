@@ -1,8 +1,3 @@
-thxs to https://github.com/blackluv https://github.com/hieujson and 
-https://github.com/senasgr-eth !
-
-
-
 ---
 
 # Junkscriptions
@@ -233,7 +228,7 @@ Make sure `rpcallowip` is set to allow local connections, and check that the `rp
 This error typically means the miner fee is too low. Increase the fee by updating your `.env` file:
 
 ```plaintext
-FEE_PER_KB=300000000
+FEE_PER_KB=1000000
 ```
 
 The default is `100000000`, but you may need to increase it during times of high demand.
