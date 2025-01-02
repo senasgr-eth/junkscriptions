@@ -158,11 +158,11 @@ var livenet = get('livenet');
 addNetwork({
   name: 'testnet',
   alias: 'test',
-  pubkeyhash: 0x71,
-  privatekey: 0xf1,
-  scripthash: 0xc4,
-  xpubkey: 0x043587cf,
-  xprivkey: 0x04358394
+  pubkeyhash: 111,
+  privatekey: 239,
+  scripthash: 5,
+  xpubkey: 0x02facafd,
+  xprivkey: 0x02fac398
 });
 
 /**
@@ -186,7 +186,7 @@ var regtest = get('regtest');
 // Add configurable values for testnet/regtest
 
 var TESTNET = {
-  PORT: 29919,
+  PORT: 19771,
   NETWORK_MAGIC: BufferUtil.integerAsBuffer(0xfcc1b7dc),
   DNS_SEEDS: []
 };
@@ -198,8 +198,8 @@ for (var key in TESTNET) {
 }
 
 var REGTEST = {
-  PORT: 18444,
-  NETWORK_MAGIC: BufferUtil.integerAsBuffer(0xfabfb5da),
+  PORT: 19771,
+  NETWORK_MAGIC: BufferUtil.integerAsBuffer(0xfcc1b7dc),
   DNS_SEEDS: []
 };
 

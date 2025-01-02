@@ -17,7 +17,7 @@ if (process.env.TESTNET == 'true') {
 if (process.env.FEE_PER_KB) {
     Transaction.FEE_PER_KB = parseInt(process.env.FEE_PER_KB)
 } else {
-    Transaction.FEE_PER_KB = 100000000
+    Transaction.FEE_PER_KB = 100000
 }
 
 const WALLET_PATH = process.env.WALLET || '.wallet.json'
@@ -43,67 +43,67 @@ async function main() {
         await wallet()
     } else if (cmd == 'server') {
         await server()
-    } else if (cmd == 'jnk-20') {
-        await doge20()
+    } else if (cmd == 'jkc-20') {
+        await jkc20()
     } else {
         throw new Error(`unknown command: ${cmd}`)
     }
 }
 
-async function doge20() {
+async function jkc20() {
   let subcmd = process.argv[3]
 
   if (subcmd === 'mint') {
-    await doge20Transfer("mint")
+    await jkc20Transfer("mint")
   } else if (subcmd === 'transfer') {
-    await doge20Transfer()
+    await jkc20Transfer()
   } else if (subcmd === 'deploy') {
-    await doge20Deploy()
+    await jkc20Deploy()
   } else {
     throw new Error(`unknown subcommand: ${subcmd}`)
   }
 }
 
-async function doge20Deploy() {
+async function jkc20Deploy() {
   const argAddress = process.argv[4]
   const argTicker = process.argv[5]
   const argMax = process.argv[6]
   const argLimit = process.argv[7]
 
-  const doge20Tx = {
-    p: "jnk-20",
+  const jkc20Tx = {
+    p: "jkc-20",
     op: "deploy",
     tick: `${argTicker.toLowerCase()}`,
     max: `${argMax}`,
     lim: `${argLimit}`
   };
 
-  const parsedDoge20Tx = JSON.stringify(doge20Tx);
-  const encodedDoge20Tx = Buffer.from(parsedDoge20Tx).toString('hex');
+  const parsedjkc20Tx = JSON.stringify(jkc20Tx);
+  const encodedjkc20Tx = Buffer.from(parsedjkc20Tx).toString('hex');
 
-  console.log("Deploying jnk-20 token...");
-  await mint(argAddress, "text/plain;charset=utf-8", encodedDoge20Tx);
+  console.log("Deploying jkc-20 token...");
+  await mint(argAddress, "text/plain;charset=utf-8", encodedjkc20Tx);
 }
 
-async function doge20Transfer() {
+async function jkc20Transfer() {
   const argAddress = process.argv[4]
   const argTicker = process.argv[5]
   const argAmount = process.argv[6]
   const argRepeat = Number(process.argv[7]) || 1;
 
-  const doge20Tx = {
-    p: "jnk-20",
+  const jkc20Tx = {
+    p: "jkc-20",
     op: "transfer",
     tick: `${argTicker.toLowerCase()}`,
     amt: `${argAmount}`
   };
 
-  const parsedDoge20Tx = JSON.stringify(doge20Tx);
-  const encodedDoge20Tx = Buffer.from(parsedDoge20Tx).toString('hex');
+  const parsedjkc20Tx = JSON.stringify(jkc20Tx);
+  const encodedjkc20Tx = Buffer.from(parsedjkc20Tx).toString('hex');
 
   for (let i = 0; i < argRepeat; i++) {
-    console.log("Minting jnk-20 token...", i + 1, "of", argRepeat, "times");
-    await mint(argAddress, "text/plain;charset=utf-8", encodedDoge20Tx);
+    console.log("Minting jkc-20 token...", i + 1, "of", argRepeat, "times");
+    await mint(argAddress, "text/plain;charset=utf-8", encodedjkc20Tx);
   }
 }
 

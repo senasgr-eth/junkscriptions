@@ -1,7 +1,7 @@
 {
   "name": "junkscriptions",
   "version": "1.0.0",
-  "description": "A minter and protocol for inscriptions on Lucky",
+  "description": "A minter and protocol for inscriptions on Junkcoin",
   "main": "junkscriptions.js",
   "author": "blackluv",
   "license": "MIT",
